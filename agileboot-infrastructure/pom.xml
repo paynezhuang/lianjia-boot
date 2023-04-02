@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>agileboot</artifactId>
-        <groupId>com.agileboot</groupId>
-        <version>${agileboot.version}</version>
+        <artifactId>lianjia-boot</artifactId>
+        <groupId>dev.zhuang</groupId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
@@ -56,13 +56,13 @@
 
         <!-- 系统模块-->
         <dependency>
-            <groupId>com.agileboot</groupId>
+            <groupId>dev.zhuang</groupId>
             <artifactId>agileboot-orm</artifactId>
         </dependency>
 
         <!-- 通用模块-->
         <dependency>
-            <groupId>com.agileboot</groupId>
+            <groupId>dev.zhuang</groupId>
             <artifactId>agileboot-common</artifactId>
         </dependency>
 
@@ -127,11 +127,6 @@
                     <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
                 </configuration>
                 <executions>
-                 <!--   <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>-->
                 </executions>
             </plugin>
             <plugin>

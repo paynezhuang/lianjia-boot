@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>agileboot</artifactId>
-        <groupId>com.agileboot</groupId>
-        <version>${agileboot.version}</version>
+        <artifactId>lianjia-boot</artifactId>
+        <groupId>dev.zhuang</groupId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,18 +20,18 @@
 
         <!-- 通用工具-->
         <dependency>
-            <groupId>com.agileboot</groupId>
+            <groupId>dev.zhuang</groupId>
             <artifactId>agileboot-common</artifactId>
         </dependency>
 
         <!-- 通用工具-->
         <dependency>
-            <groupId>com.agileboot</groupId>
+            <groupId>dev.zhuang</groupId>
             <artifactId>agileboot-orm</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.agileboot</groupId>
+            <groupId>dev.zhuang</groupId>
             <artifactId>agileboot-infrastructure</artifactId>
         </dependency>
 

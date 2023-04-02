@@ -2,18 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.agileboot</groupId>
-    <artifactId>agileboot</artifactId>
-    <version>${agileboot.version}</version>
+    <groupId>dev.zhuang</groupId>
+    <artifactId>lianjia-boot</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
-    <name>agileboot</name>
-    <url>http://www.agileboot.vip</url>
+    <name>lianjia-boot</name>
     <description>基于 springboot的快速开发系统</description>
 
     <properties>
-        <agileboot.version>1.0.0</agileboot.version>
+        <agileboot.version>1.0.0-SNAPSHOT</agileboot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -31,17 +30,18 @@
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
-        <hutool.version>5.7.22</hutool.version>
-        <lombok.version>1.18.24</lombok.version>
+        <hutool.version>5.8.16</hutool.version>
+        <lombok.version>1.18.26</lombok.version>
+        <mysql.version>8.0.32</mysql.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.1</mybatis-plus-generator.version>
         <mockito.version>1.10.19</mockito.version>
         <it.ozimov.version>0.7.3</it.ozimov.version>
         <io.swagger.version>1.6.8</io.swagger.version>
         <org.lionsoul.version>2.6.5</org.lionsoul.version>
-        <com.google.guava.version>31.0.1-jre</com.google.guava.version>
+        <com.google.guava.version>31.1-jre</com.google.guava.version>
         <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
-        <spring.boot.version>2.7.0</spring.boot.version>
+        <spring.boot.version>2.7.10</spring.boot.version>
         <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.5</maven.surefire.plugin.version>
         <maven.war.plugin.version>3.1.0</maven.war.plugin.version>
@@ -81,19 +81,26 @@
                 <version>${mybatis-spring-boot.version}</version>
             </dependency>
 
-            <!-- mybatis plus 主依赖 -->
+            <!-- MySQL -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- MyBatis Plus 主依赖 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-            <!-- mybatis plus 代码生成器依赖 -->
+
+            <!-- MyBatis Plus 代码生成器依赖 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus-generator.version}</version>
             </dependency>
-
 
             <!-- pageHelper 分页插件 -->
             <dependency>
@@ -123,28 +130,28 @@
                 <version>${commons.fileupload.version}</version>
             </dependency>
 
-            <!-- excel工具 -->
+            <!-- Excel 工具 -->
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
             </dependency>
 
-            <!-- velocity代码生成使用模板 -->
+            <!-- Velocity 代码生成使用模板 -->
             <dependency>
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity-engine-core</artifactId>
                 <version>${velocity.version}</version>
             </dependency>
 
-            <!-- collections工具类 -->
+            <!-- Collections工具类 -->
             <dependency>
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>${commons.collections.version}</version>
             </dependency>
 
-            <!-- Token生成与解析-->
+            <!-- Token 生成与解析 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
@@ -158,47 +165,46 @@
                 <version>${kaptcha.version}</version>
             </dependency>
 
-
-            <!-- admin管理模块 -->
+            <!-- admin 管理模块 -->
             <dependency>
-                <groupId>com.agileboot</groupId>
+                <groupId>dev.zhuang</groupId>
                 <artifactId>agileboot-admin</artifactId>
-                <version>${agileboot.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
-            <!-- 定时任务-->
+            <!-- api 管理模块 -->
             <dependency>
-                <groupId>com.agileboot</groupId>
+                <groupId>dev.zhuang</groupId>
                 <artifactId>agileboot-api</artifactId>
-                <version>${agileboot.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
-            <!-- 代码生成-->
+            <!-- Domain 业务领域 -->
             <dependency>
-                <groupId>com.agileboot</groupId>
+                <groupId>dev.zhuang</groupId>
                 <artifactId>agileboot-domain</artifactId>
-                <version>${agileboot.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
-            <!-- 核心模块-->
+            <!-- 核心模块 -->
             <dependency>
-                <groupId>com.agileboot</groupId>
+                <groupId>dev.zhuang</groupId>
                 <artifactId>agileboot-infrastructure</artifactId>
-                <version>${agileboot.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
-            <!-- 系统模块-->
+            <!-- 系统模块 -->
             <dependency>
-                <groupId>com.agileboot</groupId>
+                <groupId>dev.zhuang</groupId>
                 <artifactId>agileboot-orm</artifactId>
-                <version>${agileboot.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
-            <!-- 通用工具-->
+            <!-- 通用工具 -->
             <dependency>
-                <groupId>com.agileboot</groupId>
+                <groupId>dev.zhuang</groupId>
                 <artifactId>agileboot-common</artifactId>
-                <version>${agileboot.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
             <!-- hutool common tools-->
@@ -236,7 +242,7 @@
                 <version>${org.lionsoul.version}</version>
             </dependency>
 
-            <!-- 引入guava包 -->
+            <!-- Guava 包 -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -256,7 +262,7 @@
                 <version>${springdoc-openapi-ui.version}</version>
             </dependency>
 
-            <!--  swagger注解  -->
+            <!-- Swagger 注解 -->
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
@@ -351,29 +357,29 @@
         </plugins>
     </build>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>public</id>-->
-<!--            <name>aliyun nexus</name>-->
-<!--            <url>https://maven.aliyun.com/repository/public</url>-->
-<!--            <releases>-->
-<!--                <enabled>true</enabled>-->
-<!--            </releases>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>public</id>-->
+    <!--            <name>aliyun nexus</name>-->
+    <!--            <url>https://maven.aliyun.com/repository/public</url>-->
+    <!--            <releases>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </releases>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
 
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>public</id>-->
-<!--            <name>aliyun nexus</name>-->
-<!--            <url>https://maven.aliyun.com/repository/public</url>-->
-<!--            <releases>-->
-<!--                <enabled>true</enabled>-->
-<!--            </releases>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+    <!--    <pluginRepositories>-->
+    <!--        <pluginRepository>-->
+    <!--            <id>public</id>-->
+    <!--            <name>aliyun nexus</name>-->
+    <!--            <url>https://maven.aliyun.com/repository/public</url>-->
+    <!--            <releases>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </releases>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </pluginRepository>-->
+    <!--    </pluginRepositories>-->
 
 </project>
