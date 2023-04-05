@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IBaseRealEstateService extends IService<BaseRealEstateEntity> {
 
+    public boolean isNameDuplicated(String name);
+
 }

@@ -60,13 +60,17 @@ public class BaseRealEstateEntity extends BaseEntity<BaseRealEstateEntity> {
     @TableField("elevators_number")
     private String elevatorsNumber;
 
+    @ApiModelProperty("标准层面积")
+    @TableField("layer_area")
+    private String layerArea;
+
     @ApiModelProperty("电力")
     @TableField("electricity")
     private String electricity;
 
     @ApiModelProperty("是否后备供电(0否 1是)")
     @TableField("electricity_backup")
-    private Integer electricityBackup;
+    private String electricityBackup;
 
     @ApiModelProperty("使用率/面积")
     @TableField("utilization_rate")
@@ -91,6 +95,38 @@ public class BaseRealEstateEntity extends BaseEntity<BaseRealEstateEntity> {
     @ApiModelProperty("加装空调")
     @TableField("air_conditioning_install")
     private String airConditioningInstall;
+
+    @ApiModelProperty("交通情况")
+    @TableField("traffic_condition")
+    private String trafficCondition;
+
+    @ApiModelProperty("大厦配套")
+    @TableField("building_supporting")
+    private String buildingSupporting;
+
+    @ApiModelProperty("物业公司")
+    @TableField("property_company")
+    private String propertyCompany;
+
+    @ApiModelProperty("空调开放时间")
+    @TableField("air_conditioning_hours")
+    private String airConditioningHours;
+
+    @ApiModelProperty("大厦停车数量")
+    @TableField("parking_number")
+    private String parkingNumber;
+
+    @ApiModelProperty("停车收费")
+    @TableField("parking_fee")
+    private String parkingFee;
+
+    @ApiModelProperty("水电周转金")
+    @TableField("hydropower_turnover")
+    private String hydropowerTurnover;
+
+    @ApiModelProperty("装修押金")
+    @TableField("decoration_deposit")
+    private String decorationDeposit;
 
     @ApiModelProperty("备注")
     @TableField("remark")
