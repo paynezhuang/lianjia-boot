@@ -50,6 +50,10 @@ public class ResponseDTO<T> {
         return build(exception.getErrorCode().code(), exception.getMessage());
     }
 
+    public static <T> ResponseDTO<T> status(Boolean flag) {
+        return Boolean.TRUE.equals(flag) ? ok() : fail();
+    }
+
     public static <T> ResponseDTO<T> build(T data, ErrorCodeInterface code, Object... args) {
         return new ResponseDTO<>(code.code(), StrUtil.format(code.message(), args), data);
     }
