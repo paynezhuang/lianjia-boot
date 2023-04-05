@@ -1,17 +1,28 @@
 package com.agileboot.domain.base.realestate.model;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
+import com.agileboot.domain.system.role.model.RoleModel;
 import com.agileboot.orm.base.entity.BaseRealEstateEntity;
 import com.agileboot.orm.base.exception.BaseException;
 import com.agileboot.orm.base.service.IBaseRealEstateService;
+import com.agileboot.orm.system.entity.SysMenuEntity;
+import com.agileboot.orm.system.entity.SysRoleEntity;
+import com.agileboot.orm.system.entity.SysRoleMenuEntity;
+import com.agileboot.orm.system.service.ISysMenuService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 楼盘资料 Model
@@ -32,6 +43,13 @@ public class RealestateModel extends BaseRealEstateEntity {
         this.baseRealEstateService = baseRealEstateService;
     }
 
+    public RealestateModel(BaseRealEstateEntity entity, IBaseRealEstateService baseRealEstateService) {
+        if (entity != null) {
+            BeanUtil.copyProperties(entity, this);
+        }
+        this.baseRealEstateService = baseRealEstateService;
+    }
+
     /**
      * 检查大厦名字是否重复
      *
@@ -40,7 +58,7 @@ public class RealestateModel extends BaseRealEstateEntity {
      */
     public void checkNameIsUnique() {
         if (baseRealEstateService.isNameDuplicated(getName())) {
-            throw new ApiException(BaseException.REALESTATE_NAME_IS_NOT_UNIQUE);
+            throw new ApiException(BaseException.REALESTATE_NAME_IS_NOT_UNIQUE, getName());
         }
     }
 

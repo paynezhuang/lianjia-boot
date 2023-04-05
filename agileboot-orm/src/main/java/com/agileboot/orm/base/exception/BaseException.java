@@ -13,7 +13,7 @@ import com.agileboot.common.exception.error.Module;
  */
 public enum BaseException implements ErrorCodeInterface {
 
-    REALESTATE_NAME_IS_NOT_UNIQUE(Module.BASE_REALESTATE, 1, "大厦名称不允许重复"),
+    REALESTATE_NAME_IS_NOT_UNIQUE(Module.BASE_REALESTATE, 1, "大厦名称【{}】不允许重复"),
 
     ;
 

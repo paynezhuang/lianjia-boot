@@ -7,16 +7,17 @@ import com.agileboot.domain.base.realestate.RealestateApplicationService;
 import com.agileboot.domain.base.realestate.dto.RealestateDTO;
 import com.agileboot.domain.base.realestate.query.BaseRealestateQuery;
 import com.agileboot.infrastructure.annotations.AccessLog;
+import com.agileboot.orm.base.service.IBaseRealEstateService;
 import com.agileboot.orm.common.enums.BusinessTypeEnum;
+import com.agileboot.orm.system.service.ISysNoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,6 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/base/real_estate")
 @RequiredArgsConstructor
 public class BaseRealEstateController extends BaseController {
+
+    @NonNull
+    private IBaseRealEstateService baseRealEstateService;
 
     @NonNull
     private RealestateApplicationService realestateApplicationService;
@@ -49,6 +53,15 @@ public class BaseRealEstateController extends BaseController {
     public ResponseDTO<Void> importData(MultipartFile file) {
         boolean result = realestateApplicationService.importExcelData(file);
         return ResponseDTO.status(result);
+    }
+
+    @Operation(summary = "删除楼盘")
+    @PreAuthorize("@permission.has('base:real_estate:remove')")
+    @AccessLog(title = "楼盘资料", businessType = BusinessTypeEnum.DELETE)
+    @DeleteMapping(value = "/{realestateId}")
+    public ResponseDTO<Void> remove(@PathVariable("realestateId") List<Long> realestateIds) {
+        baseRealEstateService.removeBatchByIds(realestateIds);
+        return ResponseDTO.ok();
     }
 }
 
