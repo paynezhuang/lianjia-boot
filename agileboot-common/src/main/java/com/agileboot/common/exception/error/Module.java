@@ -2,6 +2,7 @@ package com.agileboot.common.exception.error;
 
 /**
  * 系统内的模块
+ *
  * @author valarchie
  */
 public enum Module {
@@ -61,13 +62,22 @@ public enum Module {
      */
     ROLE(10),
 
+    /**
+     * 楼盘资料
+     */
+    BASE_REALESTATE(11),
+
     ;
 
 
     private final int code;
 
-    Module(int code) { this.code = code * 100; }
+    Module(int code) {
+        this.code = code * 100;
+    }
 
-    public int code() {return code; }
+    public int code() {
+        return code;
+    }
 
 }
