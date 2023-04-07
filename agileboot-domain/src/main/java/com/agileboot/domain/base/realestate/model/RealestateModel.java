@@ -1,28 +1,19 @@
 package com.agileboot.domain.base.realestate.model;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.agileboot.common.exception.ApiException;
 import com.agileboot.common.exception.error.ErrorCode;
-import com.agileboot.domain.system.role.model.RoleModel;
 import com.agileboot.orm.base.entity.BaseRealEstateEntity;
 import com.agileboot.orm.base.exception.BaseException;
 import com.agileboot.orm.base.service.IBaseRealEstateService;
-import com.agileboot.orm.system.entity.SysMenuEntity;
-import com.agileboot.orm.system.entity.SysRoleEntity;
-import com.agileboot.orm.system.entity.SysRoleMenuEntity;
-import com.agileboot.orm.system.service.ISysMenuService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 楼盘资料 Model
@@ -137,7 +128,8 @@ public class RealestateModel extends BaseRealEstateEntity {
      */
     private String readCellValue(ExcelReader reader, int x, int y) {
         Object value = reader.readCellValue(x, y);
-        return value.toString().trim();
+        // 去除所有空格
+        return CharSequenceUtil.cleanBlank(value.toString());
     }
 
 }
