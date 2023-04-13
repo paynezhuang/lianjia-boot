@@ -108,6 +108,10 @@ public class BaseRealEstateEntity extends BaseEntity<BaseRealEstateEntity> {
     @TableField("property_company")
     private String propertyCompany;
 
+    @ApiModelProperty("管理费")
+    @TableField("management_fee")
+    private String managementFee;
+
     @ApiModelProperty("空调开放时间")
     @TableField("air_conditioning_hours")
     private String airConditioningHours;

@@ -78,7 +78,7 @@ public class RealestateModel extends BaseRealEstateEntity {
             // 电梯数量
             this.setElevatorsNumber(readCellValue(reader, 10, 4));
             // 标准层面积
-            this.setLayerArea(readCellValue(reader, 1, 6));
+            this.setLayerArea(readCellValue(reader, 1, 5));
             // 电力
             this.setElectricity(readCellValue(reader, 1, 6));
             // 是否后备供电(0否 1是)
@@ -101,6 +101,8 @@ public class RealestateModel extends BaseRealEstateEntity {
             this.setBuildingSupporting(readCellValue(reader, 1, 16));
             // 物业公司
             this.setPropertyCompany(readCellValue(reader, 1, 20));
+            // 管理费
+            this.setManagementFee(readCellValue(reader, 1, 21));
             // 空调开放时间
             this.setAirConditioningHours(readCellValue(reader, 1, 22));
             // 大厦停车数量

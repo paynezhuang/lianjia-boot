@@ -104,6 +104,10 @@ public class RealestateDTO {
      */
     private String propertyCompany;
     /**
+     * 管理费
+     */
+    private String managementFee;
+    /**
      * 空调开放时间
      */
     private String airConditioningHours;
