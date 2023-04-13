@@ -1,7 +1,13 @@
 package com.agileboot.infrastructure.web.domain.login;
 
-import com.agileboot.infrastructure.cache.CacheCenter;
+import cn.hutool.core.collection.ListUtil;
+import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.spring.SpringUtil;
+import com.agileboot.common.utils.ServletHolderUtil;
+import com.agileboot.common.utils.ip.IpRegionUtil;
+import com.agileboot.infrastructure.cache.redis.RedisCacheService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import eu.bitwalker.useragentutils.UserAgent;
 import java.util.Collection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +25,22 @@ public class LoginUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long userId;
+
     /**
-     * 用户唯一标识
+     * 用户唯一标识，缓存的key
      */
-    private String token;
+    private String cachedKey;
+
+    private boolean isAdmin;
+
+    private String username;
+
+    private String password;
+
+    /**
+     * 登录信息
+     */
+    private final LoginInfo loginInfo = new LoginInfo();
 
     /**
      * 登录时间
@@ -30,51 +48,60 @@ public class LoginUser implements UserDetails {
     private Long loginTime;
 
     /**
-     * 过期时间
+     * 当超过这个时间 则触发刷新缓存时间
      */
-    private Long expireTime;
-
-    private boolean isAdmin;
-
-    /**
-     * 登录信息
-     */
-    private LoginInfo loginInfo = new LoginInfo();
+    private Long autoRefreshCacheTime;
 
 
-    public LoginUser(Long userId, Boolean isAdmin) {
+    public LoginUser(Long userId, Boolean isAdmin, String username, String password) {
         this.userId = userId;
         this.isAdmin = isAdmin;
+        this.username = username;
+        this.password = password;
     }
 
     public RoleInfo getRoleInfo() {
-        return CacheCenter.roleModelInfoCache.getObjectById(getRoleId());
+        return SpringUtil.getBean(RedisCacheService.class).roleModelInfoCache.getObjectById(getRoleId());
     }
 
     public Long getRoleId() {
         if (isAdmin()) {
             return RoleInfo.ADMIN_ROLE_ID;
         } else {
-            return CacheCenter.userCache.getObjectById(userId).getRoleId();
+            return SpringUtil.getBean(RedisCacheService.class).userCache.getObjectById(userId).getRoleId();
         }
     }
 
     public Long getDeptId() {
-        return CacheCenter.userCache.getObjectById(userId).getDeptId();
+        return SpringUtil.getBean(RedisCacheService.class).userCache.getObjectById(userId).getDeptId();
     }
+
+    /**
+     * 设置用户代理信息
+     *
+     */
+    public void fillUserAgent() {
+        UserAgent userAgent = UserAgent.parseUserAgentString(ServletHolderUtil.getRequest().getHeader("User-Agent"));
+        String ip = ServletUtil.getClientIP(ServletHolderUtil.getRequest());
+
+        this.getLoginInfo().setIpAddress(ip);
+        this.getLoginInfo().setLocation(IpRegionUtil.getBriefLocationByIp(ip));
+        this.getLoginInfo().setBrowser(userAgent.getBrowser().getName());
+        this.getLoginInfo().setOperationSystem(userAgent.getOperatingSystem().getName());
+    }
+
 
     @Override
     public String getUsername() {
-        return CacheCenter.userCache.getObjectById(userId).getUsername();
+        return this.username;
     }
 
 
     @JsonIgnore
     @Override
     public String getPassword() {
-        return CacheCenter.userCache.getObjectById(userId).getPassword();
+        return this.password;
     }
-
 
     /**
      * 账户是否未过期,过期无法验证
@@ -116,9 +143,10 @@ public class LoginUser implements UserDetails {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return ListUtil.empty();
     }
 
 

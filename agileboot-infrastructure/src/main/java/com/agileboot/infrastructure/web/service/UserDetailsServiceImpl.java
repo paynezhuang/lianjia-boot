@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +52,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @NonNull
     private ISysRoleService roleService;
 
+    @NonNull
+    private TokenService tokenService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -63,8 +67,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("登录用户：{} 已被停用.", username);
             throw new ApiException(ErrorCode.Business.USER_IS_DISABLE, username);
         }
-
-        return new LoginUser(userEntity.getUserId(), userEntity.getIsAdmin());
+        LoginUser loginUser = new LoginUser(userEntity.getUserId(), userEntity.getIsAdmin(), userEntity.getUsername(),
+            userEntity.getPassword());
+        loginUser.setLoginTime(System.currentTimeMillis());
+        loginUser.setAutoRefreshCacheTime(loginUser.getLoginTime() + TimeUnit.MINUTES.toMillis(tokenService.getAutoRefreshTime()));
+        loginUser.fillUserAgent();
+        return loginUser;
     }
 
     public RoleInfo getRoleInfo(Long roleId) {
